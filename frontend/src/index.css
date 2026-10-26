@@ -1,0 +1,21 @@
+
+/* REMOVE DEFAULT PAGE MARGINS AND HORIZONTAL SCROLL */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}

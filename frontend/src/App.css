@@ -1,0 +1,145 @@
+/* NAVBAR */
+.navbar {
+  width: 100%;
+  background: #faf7f0;
+  border-bottom: 1px solid #e8e0d3;
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-container {
+  max-width: 1440px;
+  min-height: 88px;
+  margin: 0 auto;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* LOGO */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: #211810;
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #a77a36;
+  color: #a77a36;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.logo-text strong {
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.logo-text small {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+}
+
+/* NAVIGATION */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+}
+
+.navbar-links a {
+  color: #332a22;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: #a77a36;
+}
+
+/* CTA BUTTON */
+.navbar-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 20px;
+  background: #a77a36;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.navbar-cta:hover {
+  background: #805b27;
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #211810;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1050px) {
+  .navbar-container {
+    padding: 0 4%;
+    gap: 18px;
+  }
+
+  .navbar-links {
+    gap: 16px;
+  }
+
+  .navbar-links a {
+    font-size: 12px;
+  }
+
+  .logo-text strong {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .navbar-container {
+    min-height: 76px;
+  }
+
+  .navbar-links,
+  .navbar-cta {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

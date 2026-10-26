@@ -1,0 +1,84 @@
+
+/* Logo — larger and more prominent */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex: 0 0 230px;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.navbar-logo-image {
+  display: block;
+  width: 200px;
+  height:90px;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+}
+
+/* Navigation — larger tabs */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  gap: clamp(18px, 2vw, 30px);
+}
+
+.navbar-links a {
+  color: #211b14;
+  font-size: 17px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+  .navbar-logo {
+    flex-basis: 175px;
+  }
+
+  .navbar-logo-image {
+    width: 175px;
+    height: 72px;
+  }
+
+  .navbar-links {
+    gap: 14px;
+  }
+
+  .navbar-links a {
+    font-size: 15px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar-logo {
+    flex-basis: 155px;
+  }
+
+  .navbar-logo-image {
+    width: 155px;
+    height: 66px;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar-logo {
+    flex-basis: 120px;
+  }
+
+  .navbar-logo-image {
+    width: 120px;
+    height: 54px;
+  }
+}
