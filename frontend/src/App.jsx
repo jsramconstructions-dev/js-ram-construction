@@ -3,11 +3,13 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 import Hero from "./components/Hero";
 import ServiceStrip from "./components/ServiceStrip";
-import Clients from "./components/Clients";
 import PhilosophyValues from "./components/PhilosophyValues";
+import FeaturedProjects from "./components/FeaturedProjects";
+import Clients from "./components/Clients";
 
 import About from "./components/About";
 import Services from "./components/Services";
@@ -23,6 +25,7 @@ function HomePage() {
       <Hero />
       <ServiceStrip />
       <PhilosophyValues />
+      <FeaturedProjects />
       <Clients />
     </main>
   );
@@ -31,6 +34,7 @@ function HomePage() {
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
 
       <Routes>
@@ -41,10 +45,7 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
 
-        <Route
-          path="*"
-          element={<Navigate to="/" replace />}
-        />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
       <Footer />

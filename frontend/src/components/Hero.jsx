@@ -27,12 +27,12 @@ function Hero() {
         </p>
 
         <div className="hero-actions">
-          <a href="#services" className="hero-primary-btn">
+          <Link to="/services" className="hero-primary-btn">
             Explore our services <ArrowRight size={16} />
-          </a>
+          </Link>
 
-          <Link to="/contact" className="hero-secondary-btn">
-            Discuss a project
+          <Link to="/projects" className="hero-secondary-btn">
+            View our projects
           </Link>
         </div>
       </div>
@@ -47,7 +47,7 @@ function Hero() {
 
       <div className="hero-footer-right">
         <span className="hero-counter">04 / 10</span>
-        <button className="hero-arrow-btn" aria-label="Next slide">
+        <button className="hero-arrow-btn" aria-label="Next slide" type="button">
           <ArrowUpRight size={16} />
         </button>
       </div>
