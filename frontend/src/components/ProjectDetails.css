@@ -1,0 +1,343 @@
+/* =========================================
+   JS RAM CONSTRUCTION — DEDICATED PROJECT DETAILS
+   Clean, compact layout with reduced top spacing
+   ========================================= */
+
+.project-details-page {
+  position: relative;
+  min-height: 85vh;
+  background: #faf7f0;
+  color: #211b14;
+  padding: 32px 6% 80px;
+  box-sizing: border-box;
+}
+
+.project-details-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* COMPACT PROJECT HEADER — PROJECT TITLE AS MAIN HEADING */
+.project-header-section {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(167, 122, 56, 0.25);
+}
+
+.project-main-title {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 3.5vw, 44px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #15130f;
+  letter-spacing: -0.5px;
+}
+
+.project-meta-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: #645b50;
+  font-size: 13px;
+}
+
+.project-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-meta-item svg {
+  color: #a77a38;
+}
+
+/* MAIN TWO-COLUMN SHOWCASE — BROUGHT IMMEDIATELY BELOW HEADER */
+.project-showcase-layout {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+/* LEFT: MEDIA GALLERY */
+.project-media-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.project-hero-media-wrap {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  background: #110e0b;
+  border: 1px solid #d9bd87;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.project-hero-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s ease;
+}
+
+.project-hero-media-wrap:hover .project-hero-media {
+  transform: scale(1.02);
+}
+
+/* THUMBNAILS ROW */
+.project-thumbnails-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.project-thumb-btn {
+  width: 90px;
+  height: 65px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 2px solid transparent;
+  background: #110e0b;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.project-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-thumb-btn:hover {
+  border-color: #d1ad6b;
+  opacity: 0.9;
+}
+
+.project-thumb-btn.active {
+  border-color: #a77a38;
+  box-shadow: 0 2px 8px rgba(167, 122, 56, 0.35);
+}
+
+/* RIGHT: TECHNICAL SPECIFICATIONS & OVERVIEW */
+.project-info-column {
+  background: #ffffff;
+  border: 1px solid #d9bd87;
+  padding: 28px 26px;
+  box-shadow: 0 4px 18px rgba(95, 67, 26, 0.06);
+}
+
+.project-section-heading {
+  font-family: Georgia, serif;
+  font-size: 19px;
+  font-weight: 400;
+  color: #1a1612;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e8dfd1;
+  padding-bottom: 8px;
+}
+
+.project-section-heading:not(:first-child) {
+  margin-top: 22px;
+}
+
+.project-overview-text {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #554c40;
+  margin: 0 0 16px;
+}
+
+/* TECHNICAL SPECIFICATIONS LIST */
+.project-specs-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e8dfd1;
+  background: #faf8f5;
+  margin-bottom: 22px;
+}
+
+.project-spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  border-bottom: 1px solid #e8dfd1;
+  gap: 16px;
+}
+
+.project-spec-row:last-child {
+  border-bottom: none;
+}
+
+.project-spec-label {
+  color: #796f60;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.project-spec-val {
+  color: #211b14;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* DIRECT INQUIRY CARD */
+.project-cta-card {
+  background: #110e0b;
+  color: #ffffff;
+  padding: 20px 22px;
+  border-left: 3px solid #a77a38;
+}
+
+.project-cta-card h4 {
+  margin: 0 0 6px;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #d1ad6b;
+}
+
+.project-cta-card p {
+  margin: 0 0 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #b5ac9e;
+}
+
+.project-cta-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.project-cta-call,
+.project-cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.project-cta-call {
+  background: #a77a38;
+  color: #ffffff;
+}
+
+.project-cta-call:hover {
+  background: #8b6228;
+}
+
+.project-cta-whatsapp {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.project-cta-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.2);
+  border-color: #25d366;
+  color: #25d366;
+}
+
+/* NOT FOUND STATE */
+.project-not-found {
+  text-align: center;
+  padding: 60px 20px;
+  background: #ffffff;
+  border: 1px solid #d9bd87;
+}
+
+.project-not-found h2 {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  color: #1a1612;
+  margin-bottom: 12px;
+}
+
+.project-not-found p {
+  color: #645b50;
+  margin-bottom: 24px;
+}
+
+.project-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #a77a38;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.project-back-btn:hover {
+  background: #211b14;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .project-showcase-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .project-hero-media-wrap {
+    height: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-details-page {
+    padding: 24px 5% 50px;
+  }
+
+  .project-header-section {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+
+  .project-hero-media-wrap {
+    height: 250px;
+  }
+
+  .project-info-column {
+    padding: 20px 18px;
+  }
+
+  .project-meta-strip {
+    gap: 12px;
+  }
+
+  .project-cta-actions {
+    flex-direction: column;
+  }
+
+  .project-cta-call,
+  .project-cta-whatsapp {
+    justify-content: center;
+  }
+}

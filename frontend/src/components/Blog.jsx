@@ -63,7 +63,7 @@ function Blog() {
   };
 
   return (
-    <main className="blog-page">
+    <div className="blog-page" id="blog">
       {/* Compact premium hero section */}
       <section className="blog-hero">
         <div className="blog-hero-content">
@@ -190,7 +190,7 @@ function Blog() {
           <span aria-hidden="true" />
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

@@ -1,11 +1,41 @@
-
+import { useState, useEffect } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  getStoredHomepageConfig,
+  fetchHomepageSettings,
+} from "../services/dataStorage";
 import "./Hero.css";
 
 function Hero() {
+  const [heroImage, setHeroImage] = useState(() => {
+    return getStoredHomepageConfig().heroImage || "/images/hero-construction.jpg";
+  });
+
+  useEffect(() => {
+    // Fetch latest hero settings from backend
+    fetchHomepageSettings().then((cfg) => {
+      if (cfg?.heroImage) {
+        setHeroImage(cfg.heroImage);
+      }
+    });
+
+    const handleUpdate = () => {
+      const cfg = getStoredHomepageConfig();
+      if (cfg?.heroImage) {
+        setHeroImage(cfg.heroImage);
+      }
+    };
+
+    window.addEventListener("jsram_data_updated", handleUpdate);
+    return () => window.removeEventListener("jsram_data_updated", handleUpdate);
+  }, []);
+
   return (
-    <section className="hero">
+    <section
+      className="hero"
+      style={{ backgroundImage: `url("${heroImage}")` }}
+    >
       <div className="hero-overlay"></div>
 
       <div className="hero-content">

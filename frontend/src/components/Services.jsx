@@ -211,7 +211,7 @@ function Services() {
   const equipmentReveal = useScrollReveal();
 
   return (
-    <main className="services-page">
+    <div className="services-page" id="services">
       {/* SERVICES INTRODUCTION */}
       <section
         ref={servicesReveal.sectionRef}
@@ -355,7 +355,7 @@ function Services() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

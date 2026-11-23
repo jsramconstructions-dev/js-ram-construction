@@ -1,0 +1,406 @@
+/* =========================================
+   PROJECT PORTFOLIO — VERTICAL IMAGE REELS
+   Three independent upward-only image reels
+   ========================================= */
+
+.project-portfolio {
+  position: relative;
+  width: 100%;
+  background: #faf7f0;
+  color: #201a14;
+  padding: 80px 6% 85px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(167, 122, 56, 0.2);
+}
+
+.portfolio-container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 35px;
+  margin-bottom: 35px;
+}
+
+.portfolio-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #a77a38;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.eyebrow-line {
+  width: 28px;
+  height: 1px;
+  background: #a77a38;
+}
+
+.portfolio-title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 3.8vw, 50px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -1.2px;
+  color: #15130f;
+}
+
+.portfolio-title-italic {
+  color: #a77a38;
+  font-style: italic;
+}
+
+.portfolio-header-right {
+  max-width: 420px;
+  padding-bottom: 4px;
+}
+
+.portfolio-subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #645b50;
+}
+
+/* CATEGORY GRID */
+
+.category-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 24px;
+  margin-bottom: 35px;
+}
+
+/* CATEGORY CARD */
+
+.category-card {
+  position: relative;
+  height: 520px;
+  min-width: 0;
+  background: #110e0b;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(167, 122, 56, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 26px;
+  box-sizing: border-box;
+  outline: none;
+  isolation: isolate;
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.category-card:hover,
+.category-card:focus-visible {
+  border-color: rgba(167, 122, 56, 0.7);
+  box-shadow: 0 5px 14px rgba(22, 18, 14, 0.07);
+}
+
+/* IMAGE REEL */
+
+.category-card-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #110e0b;
+}
+
+/*
+  The track is exactly twice the card height.
+  It contains two images, each exactly one card height.
+
+  IMPORTANT: the resting state has NO transition.
+  When the JSX swaps the images and removes .is-transitioning,
+  the track must snap back to 0 instantly. If the base class had
+  a transition, the track would animate back down (reverse motion).
+*/
+
+.category-card-reel-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  flex-direction: column;
+  transform: translate3d(0, 0, 0);
+  transition: none;
+  will-change: transform;
+}
+
+/* TWO STACKED IMAGES */
+
+.category-card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
+  pointer-events: none;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.category-card:hover .category-card-image {
+  transform: scale(1.06);
+}
+
+/*
+  UPWARD TRANSITION
+
+  Only this state animates. Moving the track moves both
+  images together; no individual image has a transform.
+*/
+
+.category-card-reel-track.is-transitioning {
+  transform: translate3d(0, -50%, 0);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* DARK OVERLAY */
+
+.category-card-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 14, 11, 0.30) 0%,
+    rgba(17, 14, 11, 0.08) 35%,
+    rgba(17, 14, 11, 0.58) 70%,
+    rgba(17, 14, 11, 0.88) 100%
+  );
+  transition: background 0.4s ease;
+}
+
+.category-card:hover .category-card-scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(17, 14, 11, 0.25) 0%,
+    rgba(17, 14, 11, 0.10) 35%,
+    rgba(17, 14, 11, 0.65) 70%,
+    rgba(17, 14, 11, 0.91) 100%
+  );
+}
+
+/* CARD CONTENT */
+
+.category-card-top {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-card-index {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  color: #d1ad6b;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.category-card-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(17, 14, 11, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(167, 122, 56, 0.35);
+  color: #f7f3eb;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.category-card-bottom {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.category-card-badge {
+  color: #d1ad6b;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.category-card-title {
+  margin: 0 0 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+.category-card-desc {
+  margin: 0 0 18px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #d5cec2;
+}
+
+/* ACTION */
+
+.category-card-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid rgba(247, 243, 235, 0.2);
+}
+
+.action-text {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.action-circle {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(167, 122, 56, 0.4);
+  color: #d1ad6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover .action-circle,
+.category-card:focus-visible .action-circle {
+  background: #a77a38;
+  color: #ffffff;
+  border-color: #a77a38;
+  transform: rotate(45deg);
+}
+
+.category-card:hover .action-text {
+  color: #d1ad6b;
+}
+
+/* FOOTER */
+
+.portfolio-footer-note {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.portfolio-footer-note span {
+  font-size: 10.5px;
+  letter-spacing: 2px;
+  color: #8f795d;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* TABLET */
+
+@media (max-width: 1024px) {
+  .portfolio-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 25px;
+  }
+
+  .category-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .category-card {
+    height: 460px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 640px) {
+  .project-portfolio {
+    padding: 60px 5% 55px;
+  }
+
+  .portfolio-header {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .portfolio-title {
+    font-size: 34px;
+  }
+
+  .portfolio-subtitle {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .category-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .category-card {
+    height: 420px;
+    padding: 22px 18px;
+  }
+
+  .category-card-title {
+    font-size: 24px;
+  }
+
+  .category-card-desc {
+    font-size: 12px;
+  }
+
+  .portfolio-footer-note span {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .category-card-reel-track,
+  .category-card-reel-track.is-transitioning,
+  .category-card,
+  .action-circle {
+    transition: none;
+  }
+}

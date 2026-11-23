@@ -1,5 +1,9 @@
-
 /* REMOVE DEFAULT PAGE MARGINS AND HORIZONTAL SCROLL */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
 html,
 body,
 #root {

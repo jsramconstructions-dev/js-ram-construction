@@ -1,0 +1,569 @@
+# JS RAM CONSTRUCTION — MASTER PROJECT REQUIREMENTS & DEVELOPMENT PROMPT
+
+## 1. PROJECT OVERVIEW
+
+We are developing a dynamic, full-stack website for JS RAM Construction.
+
+The existing website is already designed and has a premium architectural identity. Our objective is to make selected website content manageable through a simple admin panel, backed by a database and cloud image storage.
+
+**This is an enhancement of the existing website, NOT a complete redesign.**
+
+The most important rule:
+
+PRESERVE THE EXISTING WEBSITE DESIGN AND MAKE THE HOMEPAGE IMAGE, PORTFOLIO CATEGORIES, CATEGORY IMAGES, AND PROJECT CONTENT DYNAMIC.
+
+---
+
+## 2. EXISTING WEBSITE — DESIGN MUST BE PRESERVED
+
+The website currently uses:
+- React.js
+- Vite
+- JavaScript
+- React Router
+- Existing CSS and components
+- Existing animations and interactions
+
+The visual identity includes:
+- Premium architectural presentation.
+- Cream/off-white backgrounds.
+- Black and dark sections.
+- Gold and bronze accents.
+- Elegant serif typography.
+- Large architectural photographs.
+- Smooth animations and transitions.
+
+### Strict preservation requirements
+
+1. Preserve the homepage layout exactly.
+2. Preserve the existing navbar and navigation.
+3. Preserve the homepage hero heading and description.
+4. Preserve existing buttons, links and sections.
+5. Preserve typography, spacing, colors and animations.
+6. Preserve the existing responsive design.
+7. Preserve working routes and functionality.
+8. Do not unnecessarily replace existing components.
+9. Do not redesign the website just because backend integration is being implemented.
+
+Only the specific dynamic functionality described below should be changed.
+
+---
+
+## 3. HOMEPAGE HERO IMAGE MANAGEMENT
+
+The homepage currently has a large architectural background image.
+
+We want the admin to control ONLY this image.
+
+Admin functionality:
+- Upload a new hero background image.
+- Preview the uploaded image.
+- Replace the current hero image.
+- Display the new image automatically on the public homepage.
+
+Important:
+- Hero heading must remain unchanged.
+- Hero description must remain unchanged.
+- Buttons must remain unchanged.
+- Navbar and layout must remain unchanged.
+- No other homepage content should become editable through this feature.
+
+---
+
+## 4. DYNAMIC HOMEPAGE PORTFOLIO CATEGORIES
+
+The existing homepage contains three large portfolio category cards:
+
+1. Hospital
+2. Commercial
+3. High-Rise Residential
+
+These cards must maintain their existing appearance and design.
+
+### What becomes dynamic?
+
+Each category should have:
+- Category name.
+- Category description.
+- Category label or sector.
+- One fixed cover image.
+- Project count, calculated automatically.
+- Active/inactive status.
+- Display ordering.
+
+### Category image requirements
+
+Each category has ONE fixed cover image selected by the admin.
+
+Do not implement an automatic multi-image reel or image rotation for category cards.
+
+The selected image must appear in the existing category card design.
+
+The existing visual style, overlays, gradients, text placement, borders and animations must remain unchanged.
+
+### Category management
+
+Admin must be able to:
+- Create categories.
+- Edit categories.
+- Delete categories.
+- Upload or replace category cover images.
+- Change category display order.
+- Activate or deactivate categories.
+
+The three existing categories must be preserved and migrated into the dynamic system.
+
+---
+
+## 5. CATEGORY CLICK — PROJECT GRID
+
+This is an important change to the existing website behaviour.
+
+Currently, clicking a category launches the full-screen project exhibition viewer.
+
+We want to change this.
+
+### Required behaviour
+
+When a visitor clicks:
+
+- Hospital → Open Hospital project grid.
+- Commercial → Open Commercial project grid.
+- High-Rise Residential → Open High-Rise Residential project grid.
+
+The project grid should follow the existing portfolio card style and reference screenshot.
+
+### Project grid card information
+
+Each project card should display:
+- Project cover photograph.
+- Project name.
+- Location.
+- Client name.
+- Configuration.
+- Floor plate / area.
+- Additional specifications.
+
+Requirements:
+- Only projects belonging to the selected category should appear.
+- Only published projects should appear publicly.
+- Grid must be responsive.
+- Project information must load from the backend.
+- Maintain the premium cream, black and gold design.
+
+Do not automatically open a full-screen viewer when clicking a category.
+
+---
+
+## 6. INDIVIDUAL PROJECT DETAILS PAGE
+
+When a visitor clicks an individual project card, open a dedicated project details page.
+
+Do NOT use the previous split-screen FullScreenProjectViewer as the default project display.
+
+The project details page should include:
+
+### Project information
+- Project name.
+- Project location.
+- Client name.
+- Configuration.
+- Floor plate / area.
+- Additional specifications.
+- Project overview.
+
+### Project photographs
+- Multiple photographs per project.
+- Large main project photograph.
+- Additional project gallery.
+- Smooth image transitions where appropriate.
+- Responsive gallery layout.
+
+### Additional requirements
+- Maintain the existing website's design identity.
+- Include navigation back to the project grid.
+- Provide a suitable inquiry/contact action.
+- Load the project using its database ID or slug.
+- Handle missing or unpublished projects correctly.
+
+The previous FullScreenProjectViewer should not be forced into this new workflow. Reuse existing code only where appropriate.
+
+---
+
+## 7. ADMIN PANEL — SIMPLE CONTENT MANAGEMENT
+
+The admin panel must be simple, clean and easy to operate.
+
+It should contain ONLY three main management sections.
+
+### SECTION A — HOMEPAGE IMAGE
+
+Features:
+- Display current homepage image.
+- Upload a replacement image.
+- Preview before saving.
+- Save and publish the new image.
+
+Only the hero image is editable.
+
+### SECTION B — CATEGORY MANAGEMENT
+
+Features:
+- Create category.
+- Edit category.
+- Delete category.
+- Upload category cover image.
+- Preview cover image.
+- Update category details.
+- Manage active/inactive status.
+- Change display order.
+
+Each category must have one fixed cover image.
+
+### SECTION C — PROJECT MANAGEMENT
+
+Admin workflow:
+
+Step 1: Select an existing category.
+
+Step 2: Click Add Project.
+
+Step 3: Enter project information.
+
+Step 4: Upload multiple project photographs.
+
+Step 5: Select the project cover image from uploaded photographs.
+
+Step 6: Preview the project.
+
+Step 7: Save as draft or publish.
+
+Project fields:
+
+- Project name.
+- Project slug.
+- Category.
+- Location.
+- Client.
+- Configuration.
+- Floor plate / area.
+- Additional specifications.
+- Project overview.
+- Multiple project images.
+- Selected cover image.
+- Display order.
+- Published/unpublished status.
+
+Admin must be able to:
+- Add projects.
+- Edit projects.
+- Delete projects.
+- Upload multiple photographs.
+- Remove photographs.
+- Change project cover image.
+- Change project category.
+- Publish/unpublish projects.
+
+### Category deletion rule
+
+When an admin attempts to delete a category:
+
+- Show a confirmation.
+- Check whether projects are assigned to the category.
+- Prevent deletion while projects are assigned.
+- Inform the admin to reassign or remove those projects first.
+
+Do not silently delete associated projects.
+
+---
+
+## 8. FINAL WEBSITE VISITOR JOURNEY
+
+The intended website experience is:
+
+1. Visitor opens JS RAM Construction homepage.
+2. Visitor sees the existing homepage design.
+3. Visitor sees the three portfolio category cards.
+4. Visitor clicks Hospital.
+5. Hospital-specific project grid opens.
+6. Visitor clicks an individual project.
+7. Dedicated project details page opens.
+8. Visitor views project photographs and complete project information.
+9. Visitor can return to the category project grid.
+
+All portfolio information is dynamically loaded from the backend.
+
+---
+
+## 9. TECHNICAL ARCHITECTURE
+
+### Frontend
+- React.js
+- Vite
+- JavaScript
+- Existing React Router
+- Existing CSS and components
+
+### Backend
+- Node.js
+- Express.js
+- Mongoose
+- JWT authentication
+- bcryptjs
+- Multer or an appropriate upload middleware
+- Modular architecture
+
+### Database
+- MongoDB Atlas
+
+MongoDB should store:
+- Homepage image configuration and URL.
+- Category records.
+- Project records.
+- Image URLs and metadata.
+- Admin authentication information.
+
+### Image storage
+- Google Cloud Storage (GCS).
+
+GCS should store:
+- Homepage hero image.
+- Category cover images.
+- Project photographs.
+
+Images should not be stored as binary files in MongoDB.
+
+Store image URLs and metadata in MongoDB.
+
+### Hosting
+- Existing Render deployment should be preserved where possible.
+- Configure production environment variables securely.
+
+---
+
+## 10. BACKEND STRUCTURE
+
+Build a modular backend.
+
+Suggested organization:
+
+apps/backend/
+- config/
+- models/
+- controllers/
+- services/
+- routes/
+- middleware/
+- validators/
+- utils/
+
+Required models:
+
+1. Admin
+2. HomepageSettings
+3. Category
+4. Project
+
+Suggested API groups:
+
+### Authentication
+- POST /api/auth/login
+- GET /api/auth/me
+
+### Homepage
+- GET /api/homepage
+- PUT /api/admin/homepage/image
+
+### Categories
+- GET /api/categories
+- GET /api/categories/:slug
+- POST /api/admin/categories
+- PUT /api/admin/categories/:id
+- DELETE /api/admin/categories/:id
+
+### Projects
+- GET /api/projects
+- GET /api/projects/:slug
+- GET /api/categories/:slug/projects
+- POST /api/admin/projects
+- PUT /api/admin/projects/:id
+- DELETE /api/admin/projects/:id
+
+### Image uploads
+Implement authenticated upload endpoints for:
+- Homepage image.
+- Category cover image.
+- Project photographs.
+
+These are proposed endpoint contracts. Inspect the existing repository before implementation and adjust them consistently if existing conventions require it.
+
+---
+
+## 11. SECURITY REQUIREMENTS
+
+- Admin authentication must use JWT.
+- Passwords must be hashed using bcryptjs.
+- Protect all admin APIs.
+- Validate incoming data.
+- Validate uploaded image types and sizes.
+- Keep GCS credentials on the backend.
+- Never expose secrets in frontend code.
+- Never commit credentials to GitHub.
+- Use environment variables.
+- Configure production secrets through Render.
+- Use appropriate GCS permissions.
+- Do not allow public visitors to upload images or modify content.
+
+---
+
+## 12. CLOUD RESOURCE RESPONSIBILITIES
+
+The project owner will create/configure:
+
+### Google Cloud
+- Google Cloud project.
+- Cloud Storage bucket.
+- Required service account.
+- Appropriate bucket permissions.
+- Backend credentials.
+
+### MongoDB Atlas
+- Atlas project.
+- MongoDB cluster if no suitable existing cluster exists.
+- Database user.
+- Network access configuration.
+- Connection URI.
+
+The coding agent should:
+- Implement database connection logic.
+- Create Mongoose models.
+- Implement GCS integration.
+- Implement image upload services.
+- Test connectivity once credentials are configured.
+
+Do not create duplicate cloud resources without checking first.
+
+Credentials must be configured through environment variables, not pasted into public chat messages.
+
+---
+
+## 13. DEVELOPMENT RULES FOR THE CODING AGENT
+
+Act as a senior full-stack engineer.
+
+Before changing code:
+1. Inspect the complete repository.
+2. Understand the existing frontend architecture.
+3. Identify existing routes and components.
+4. Identify existing project data and image sources.
+5. Check whether any backend or database configuration already exists.
+6. Identify existing admin functionality.
+7. Prepare a file-level implementation plan.
+
+Then implement the complete system in logical phases.
+
+### Important coding rules
+
+- Use JavaScript, not TypeScript.
+- Preserve existing functionality.
+- Follow existing naming conventions where practical.
+- Keep components reusable.
+- Separate controllers, services, models and routes.
+- Use async/await.
+- Implement proper error handling.
+- Avoid duplicated code.
+- Avoid unnecessary dependencies.
+- Make the website responsive.
+- Verify frontend builds.
+- Verify backend startup.
+- Test APIs.
+- Test image uploads.
+- Test authentication.
+- Test admin workflows.
+- Test public website data loading.
+
+Do not stop after providing an audit report. Once the repository has been inspected, begin implementation incrementally.
+
+Do not make large structural changes without explaining the reason.
+
+Maintain a clear progress report containing:
+- Completed work.
+- Current work.
+- Pending work.
+- Files created.
+- Files modified.
+- Tests performed.
+- Known issues.
+
+---
+
+## 14. IMPLEMENTATION PHASES
+
+Phase 1 — Repository inspection and architecture.
+
+Phase 2 — Backend foundation and MongoDB connection.
+
+Phase 3 — Admin authentication.
+
+Phase 4 — Google Cloud Storage integration.
+
+Phase 5 — Homepage image management.
+
+Phase 6 — Category CRUD and category cover uploads.
+
+Phase 7 — Project CRUD and multiple image uploads.
+
+Phase 8 — Dynamic homepage integration.
+
+Phase 9 — Dynamic category-specific project grids.
+
+Phase 10 — Individual project details pages and galleries.
+
+Phase 11 — Admin panel integration.
+
+Phase 12 — Security, testing and deployment.
+
+Cloud configuration can proceed in parallel with code development.
+
+Do not block backend foundation or frontend development while waiting for cloud credentials. Use safe placeholders and local configuration until the resources are ready.
+
+---
+
+## 15. FINAL ACCEPTANCE CRITERIA
+
+The project is complete only when:
+
+1. Existing homepage appearance remains intact.
+2. Admin can replace the homepage hero image.
+3. Admin can create, edit and delete categories.
+4. Each category has one admin-selected cover image.
+5. Homepage category cards display dynamic information.
+6. Category cards retain their original visual design.
+7. Clicking a category opens its project grid.
+8. Admin can create and manage category-specific projects.
+9. Admin can upload multiple project photographs.
+10. Admin can select project cover photographs.
+11. Published projects appear on the public website.
+12. Unpublished projects remain hidden from public visitors.
+13. Clicking a project opens its dedicated details page.
+14. Project photographs and details load correctly.
+15. Category deletion is protected when projects are assigned.
+16. Admin APIs are protected.
+17. GCS image uploads work.
+18. MongoDB data persists correctly.
+19. Website works responsively on desktop and mobile.
+20. Existing website functionality has not been broken.
+
+---
+
+# MOST IMPORTANT PROJECT RULE
+
+We are NOT building a new website.
+
+We are NOT redesigning the existing homepage.
+
+We are NOT building a complicated CMS.
+
+We are building a simple admin-controlled content management system for the existing JS RAM Construction website.
+
+**Preserve the existing premium design. Make only the specified content dynamic. Build the frontend, backend, database, image storage and admin integration as one connected system.**

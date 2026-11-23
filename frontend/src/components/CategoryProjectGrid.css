@@ -1,0 +1,321 @@
+/* =========================================
+   JS RAM CONSTRUCTION — CATEGORY PROJECT GRID
+   Clean, compact portfolio experience without excessive vertical spacing
+   ========================================= */
+
+.category-grid-page {
+  position: relative;
+  min-height: 80vh;
+  background: #faf7f0;
+  color: #211b14;
+  padding: 32px 6% 80px;
+  box-sizing: border-box;
+}
+
+.category-grid-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* COMPACT HEADER — CATEGORY TITLE ONLY */
+.category-grid-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(167, 122, 56, 0.25);
+}
+
+.category-grid-title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #15130f;
+}
+
+/* GRID CARDS — DISPLAYED IMMEDIATELY BELOW HEADING */
+.category-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* INDIVIDUAL PROJECT CARD (Preserved 100% with premium borders, badges, hover effects) */
+.cat-project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #d9bd87;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(95, 67, 26, 0.05);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    box-shadow 0.5s ease;
+}
+
+.cat-project-card:hover {
+  transform: translateY(-5px);
+  border-color: #a77a38;
+  box-shadow: 0 14px 30px rgba(95, 67, 26, 0.12);
+}
+
+.cat-project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #a77a38, #e7ca8b);
+  z-index: 5;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cat-project-card:hover::before {
+  width: 100%;
+}
+
+.cat-project-media-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cat-project-image-wrap {
+  position: relative;
+  height: 230px;
+  overflow: hidden;
+  background: #f0e9dd;
+  border-bottom: 1px solid #e6d5b4;
+}
+
+.cat-project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.cat-project-card:hover .cat-project-image {
+  transform: scale(1.05);
+}
+
+.cat-project-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 2px solid #a77a38;
+  color: #72552c;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.cat-project-arrow {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(17, 14, 11, 0.65);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.cat-project-card:hover .cat-project-arrow {
+  background: #a77a38;
+  border-color: #a77a38;
+  transform: rotate(45deg);
+}
+
+/* CONTENT */
+.cat-project-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px 20px 20px;
+  background: #ffffff;
+}
+
+.cat-project-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #a77a38;
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.cat-project-title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #211b14;
+  transition: color 0.3s ease;
+}
+
+.cat-project-card:hover .cat-project-title {
+  color: #a77a38;
+}
+
+.cat-project-client {
+  margin: 8px 0 14px;
+  font-size: 12px;
+  color: #756d62;
+  line-height: 1.5;
+}
+
+/* SPECIFICATIONS TABLE */
+.cat-project-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: auto;
+  padding: 12px 0;
+  border-top: 1px solid #eadfcf;
+  border-bottom: 1px solid #eadfcf;
+}
+
+.cat-project-specs > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cat-project-specs > div + div {
+  padding-left: 10px;
+  border-left: 1px solid #eadfcf;
+}
+
+.cat-project-specs span {
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #8b8174;
+}
+
+.cat-project-specs strong {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #30281e;
+  line-height: 1.4;
+}
+
+.cat-project-additional {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: #956b30;
+  font-weight: 500;
+}
+
+/* EMPTY STATE */
+.category-empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  background: #ffffff;
+  border: 1px solid #d9bd87;
+}
+
+.category-empty-state h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.category-empty-state p {
+  color: #71695e;
+  margin-bottom: 20px;
+}
+
+/* FOOTER */
+.category-grid-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #d9bd87;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.category-grid-footer p {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-style: italic;
+  color: #655b4e;
+  font-size: 16px;
+}
+
+.category-grid-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #a77a38;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.category-grid-cta-btn:hover {
+  background: #211b14;
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .category-projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .category-grid-page {
+    padding: 24px 5% 50px;
+  }
+
+  .category-grid-header {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+
+  .category-projects-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .cat-project-image-wrap {
+    height: 210px;
+  }
+
+  .category-grid-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

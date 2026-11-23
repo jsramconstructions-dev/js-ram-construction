@@ -49,7 +49,7 @@ function ServiceStrip() {
     <section
       ref={sectionRef}
       className={`service-strip ${isVisible ? "service-strip-visible" : ""}`}
-      id="services"
+      id="services-strip"
     >
       <div className="service-strip-container">
         {services.map(({ title, subtitle, Icon }, index) => (

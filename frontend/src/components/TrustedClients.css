@@ -1,0 +1,220 @@
+/* =========================================
+   TRUSTED CLIENT PARTNERSHIPS
+   Continuous Horizontal Logo Marquee
+   Compact & Well-Balanced Spacing
+   ========================================= */
+
+.trusted-clients {
+  position: relative;
+  width: 100%;
+  background: #f8f5ef;
+  color: #201a14;
+  padding: 75px 6% 70px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(167, 122, 56, 0.2);
+}
+
+.clients-container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+.trusted-clients-header {
+  margin-bottom: 35px;
+}
+
+.clients-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #a77a38;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.clients-header-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  gap: clamp(25px, 4vw, 60px);
+  align-items: flex-end;
+}
+
+.clients-main-title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 3.8vw, 48px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -1.2px;
+  color: #15130f;
+}
+
+.clients-title-italic {
+  color: #a77a38;
+  font-style: italic;
+}
+
+.clients-description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #645b50;
+  padding-bottom: 4px;
+}
+
+/* MARQUEE CONTAINER */
+.marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 18px 0;
+  margin-bottom: 25px;
+  border-top: 1px solid rgba(167, 122, 56, 0.22);
+  border-bottom: 1px solid rgba(167, 122, 56, 0.22);
+}
+
+/* Side gradient masks for seamless visual fade */
+.marquee-fade-left,
+.marquee-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.marquee-fade-left {
+  left: 0;
+  background: linear-gradient(90deg, #f8f5ef 0%, rgba(248, 245, 239, 0) 100%);
+}
+
+.marquee-fade-right {
+  right: 0;
+  background: linear-gradient(270deg, #f8f5ef 0%, rgba(248, 245, 239, 0) 100%);
+}
+
+/* Marquee Track */
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: max-content;
+  animation: continuousMarquee 30s linear infinite;
+  will-change: transform;
+}
+
+/* Pause on Hover */
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes continuousMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-100% / 3), 0, 0);
+  }
+}
+
+/* Logo Card */
+.marquee-logo-card {
+  flex: 0 0 195px;
+  height: 105px;
+  background: #ffffff;
+  border: 1px solid rgba(167, 122, 56, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.marquee-logo-card:hover {
+  transform: translateY(-2px);
+  border-color: #a77a38;
+  box-shadow: 0 8px 20px rgba(32, 26, 20, 0.08);
+}
+
+.client-logo-img {
+  max-width: 100%;
+  max-height: 56px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(85%) contrast(110%);
+  opacity: 0.85;
+  transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+}
+
+.marquee-logo-card:hover .client-logo-img {
+  filter: grayscale(0%) contrast(100%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Bottom Meta */
+.clients-bottom-meta {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.clients-bottom-meta span {
+  font-size: 10.5px;
+  letter-spacing: 2px;
+  color: #8f795d;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .clients-header-split {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .marquee-fade-left,
+  .marquee-fade-right {
+    width: 50px;
+  }
+
+  .marquee-logo-card {
+    flex: 0 0 160px;
+    height: 90px;
+    padding: 12px 16px;
+  }
+
+  .client-logo-img {
+    max-height: 46px;
+  }
+}
+
+@media (max-width: 640px) {
+  .trusted-clients {
+    padding: 55px 5% 50px;
+  }
+
+  .marquee-track {
+    gap: 16px;
+    animation-duration: 22s;
+  }
+
+  .marquee-logo-card {
+    flex: 0 0 140px;
+    height: 80px;
+    padding: 10px 12px;
+  }
+
+  .client-logo-img {
+    max-height: 40px;
+  }
+}
