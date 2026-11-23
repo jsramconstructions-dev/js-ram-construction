@@ -3,11 +3,13 @@
 
 import { categoryData, categorizedProjects } from "../data/projectsData";
 
-const API_BASE =
+// Strip any trailing /api or /api/ from the env var so we never double up paths.
+const API_BASE = (
   import.meta.env.VITE_API_URL ||
   (typeof window !== "undefined" && window.location.hostname === "localhost" && window.location.port !== "5000"
     ? "http://localhost:5000"
-    : "");
+    : "")
+).replace(/\/api\/?$/, "");
 
 const STORAGE_KEYS = {
   PROJECTS: "jsram_projects_v3",
@@ -217,8 +219,11 @@ export const getStoredHomepageConfig = () => {
     const raw = localStorage.getItem(STORAGE_KEYS.HOMEPAGE);
     if (raw) {
       const parsed = JSON.parse(raw);
-      // Clean up legacy base64 hero image if present
-      if (typeof parsed.heroImage === "string" && parsed.heroImage.startsWith("data:image")) {
+      // Clean up legacy base64 or blob: hero images — both are non-persistent
+      if (
+        typeof parsed.heroImage === "string" &&
+        (parsed.heroImage.startsWith("data:image") || parsed.heroImage.startsWith("blob:"))
+      ) {
         parsed.heroImage = "/images/hero-construction.jpg";
         safeSetItem(STORAGE_KEYS.HOMEPAGE, JSON.stringify(parsed));
       }
@@ -283,19 +288,18 @@ export const updateHomepageHeroImage = async (fileOrUrl) => {
     console.warn("[Homepage API Upload] Error:", e.message);
   }
 
-  // Fallback: Use string URL or temporary object URL. NEVER store base64 in localStorage!
-  let heroImageUrl = "/images/hero-construction.jpg";
-  if (typeof fileOrUrl === "string" && !fileOrUrl.startsWith("data:image")) {
-    heroImageUrl = fileOrUrl;
-  } else if (fileOrUrl instanceof File && typeof window !== "undefined") {
-    heroImageUrl = URL.createObjectURL(fileOrUrl);
+  // Fallback: Use only persistent string URLs. Never store blob: or base64 in localStorage!
+  if (typeof fileOrUrl === "string" && !fileOrUrl.startsWith("data:image") && !fileOrUrl.startsWith("blob:")) {
+    const current = getStoredHomepageConfig();
+    const updated = { ...current, heroImage: fileOrUrl };
+    safeSetItem(STORAGE_KEYS.HOMEPAGE, JSON.stringify(updated));
+    notifyDataUpdated();
+    return { success: true, heroImage: fileOrUrl };
   }
 
-  const current = getStoredHomepageConfig();
-  const updated = { ...current, heroImage: heroImageUrl };
-  safeSetItem(STORAGE_KEYS.HOMEPAGE, JSON.stringify(updated));
-  notifyDataUpdated();
-  return { success: true, heroImage: heroImageUrl };
+  // File upload failed and we cannot create a persistent URL — report failure
+  console.warn("[Homepage] Image upload failed. The image was not saved.");
+  return { success: false, message: "Image upload to server failed. Please try again." };
 };
 
 // -------------------------------------------------------------
@@ -377,12 +381,9 @@ export const saveCategory = async (categoryData, coverFile = null, isNewRecord =
     console.warn("[Categories API] Persistence fallback:", e.message);
   }
 
-  // Local fallback without Base64 storage
+  // Local fallback — keep the existing cover image; never store blob URLs
   const categories = getStoredCategories();
-  let coverImage = categoryData.coverImage;
-  if (coverFile instanceof File && typeof window !== "undefined") {
-    coverImage = URL.createObjectURL(coverFile);
-  }
+  let coverImage = categoryData.coverImage || "/images/hero-construction.jpg";
 
   const updatedItem = {
     ...categoryData,
