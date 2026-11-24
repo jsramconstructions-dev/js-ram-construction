@@ -38,7 +38,7 @@ function Navbar() {
           onClick={(e) => handleScrollTo(e, "home")}
         >
           <img
-            src="/images/logo3.png"
+            src="/images/Js Ram Logo.png"
             alt="JS RAM Construction Pvt. Ltd."
             className="navbar-logo-image"
           />
