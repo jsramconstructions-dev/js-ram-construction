@@ -18,9 +18,22 @@ const getAllProjects = async (req, res) => {
 
     const projects = await Project.find(filter).sort({ displayOrder: 1, createdAt: -1 });
 
+    const sanitizedProjects = projects.map((p) => {
+      const pObj = p.toObject ? p.toObject() : { ...p };
+      if (!pObj.image || pObj.image.startsWith("blob:") || pObj.image.startsWith("data:image")) {
+        pObj.image = (pObj.progressImages && pObj.progressImages[0]) || "/images/hero-construction.jpg";
+      }
+      if (Array.isArray(pObj.progressImages)) {
+        pObj.progressImages = pObj.progressImages.filter(
+          (img) => typeof img === "string" && !img.startsWith("blob:") && !img.startsWith("data:image")
+        );
+      }
+      return pObj;
+    });
+
     return res.status(200).json({
       success: true,
-      data: projects,
+      data: sanitizedProjects,
     });
   } catch (error) {
     return res.status(500).json({
@@ -53,9 +66,19 @@ const getProjectBySlug = async (req, res) => {
       });
     }
 
+    const pObj = project.toObject ? project.toObject() : { ...project };
+    if (!pObj.image || pObj.image.startsWith("blob:") || pObj.image.startsWith("data:image")) {
+      pObj.image = (pObj.progressImages && pObj.progressImages[0]) || "/images/hero-construction.jpg";
+    }
+    if (Array.isArray(pObj.progressImages)) {
+      pObj.progressImages = pObj.progressImages.filter(
+        (img) => typeof img === "string" && !img.startsWith("blob:") && !img.startsWith("data:image")
+      );
+    }
+
     return res.status(200).json({
       success: true,
-      data: project,
+      data: pObj,
     });
   } catch (error) {
     return res.status(500).json({

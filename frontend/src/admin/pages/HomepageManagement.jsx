@@ -13,6 +13,7 @@ import {
   getStoredHomepageConfig,
   fetchHomepageSettings,
   updateHomepageHeroImage,
+  resolveImageUrl,
 } from "../../services/dataStorage";
 import "./HomepageManagement.css";
 
@@ -128,6 +129,9 @@ function HomepageManagement() {
   };
 
   const activeDisplayImage = previewImage || currentHeroImage;
+  const resolvedDisplayImage = previewImage
+    ? resolveImageUrl(previewImage, "/images/hero-construction.jpg", true)
+    : resolveImageUrl(currentHeroImage);
 
   return (
     <div className="homepage-management-view">
@@ -183,7 +187,7 @@ function HomepageManagement() {
           <div className="hero-mockup-frame">
             <div
               className="hero-mockup-bg"
-              style={{ backgroundImage: `url("${activeDisplayImage}")` }}
+              style={{ backgroundImage: `url("${resolvedDisplayImage}")` }}
             />
             <div className="hero-mockup-overlay" />
             <div className="hero-mockup-content">

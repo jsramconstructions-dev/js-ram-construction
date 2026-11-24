@@ -294,6 +294,15 @@ const seedDefaults = async () => {
         heroImagePublicId: null,
       });
       console.log("[Seed] Default homepage hero settings seeded.");
+    } else if (
+      !existingSettings.heroImage ||
+      existingSettings.heroImage.startsWith("blob:") ||
+      existingSettings.heroImage.startsWith("data:image")
+    ) {
+      existingSettings.heroImage = "/images/hero-construction.jpg";
+      existingSettings.heroImagePublicId = null;
+      await existingSettings.save();
+      console.log("[Seed] Repaired invalid homepage hero image in database.");
     }
 
     // 3. Seed Categories if empty

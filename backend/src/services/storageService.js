@@ -8,40 +8,75 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 /**
+ * Helper to validate and retrieve Cloudinary credentials
+ */
+const getCloudinaryCredentials = () => {
+  const cloudName = (process.env.CLOUDINARY_CLOUD_NAME || "").trim();
+  const apiKey = (process.env.CLOUDINARY_API_KEY || "").trim();
+  const apiSecret = (process.env.CLOUDINARY_API_SECRET || "").trim();
+  const cldUrl = (process.env.CLOUDINARY_URL || "").trim();
+
+  const isPlaceholder = (val) =>
+    !val ||
+    val.includes("your_cloudinary_") ||
+    val === "your_cloudinary_cloud_name" ||
+    val === "your_cloudinary_api_key" ||
+    val === "your_cloudinary_api_secret";
+
+  if (cldUrl && !cldUrl.includes("your_")) {
+    return { isConfigured: true, useUrl: true, cldUrl };
+  }
+
+  if (
+    cloudName &&
+    apiKey &&
+    apiSecret &&
+    !isPlaceholder(cloudName) &&
+    !isPlaceholder(apiKey) &&
+    !isPlaceholder(apiSecret)
+  ) {
+    return { isConfigured: true, useUrl: false, cloudName, apiKey, apiSecret };
+  }
+
+  return { isConfigured: false };
+};
+
+/**
  * Configure Cloudinary from environment variables
  */
 const initCloudinary = () => {
-  const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-  const apiKey = process.env.CLOUDINARY_API_KEY;
-  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+  const creds = getCloudinaryCredentials();
+  if (!creds.isConfigured) return false;
 
-  if (cloudName && apiKey && apiSecret) {
+  if (creds.useUrl) {
     cloudinary.config({
-      cloud_name: cloudName,
-      api_key: apiKey,
-      api_secret: apiSecret,
+      cloudinary_url: creds.cldUrl,
       secure: true,
     });
-    console.log(`[Storage] Cloudinary initialized for cloud_name: ${cloudName}`);
+    console.log("[Storage] Cloudinary initialized via CLOUDINARY_URL.");
     return true;
   }
-  return false;
+
+  cloudinary.config({
+    cloud_name: creds.cloudName,
+    api_key: creds.apiKey,
+    api_secret: creds.apiSecret,
+    secure: true,
+  });
+  console.log(`[Storage] Cloudinary initialized for cloud_name: ${creds.cloudName}`);
+  return true;
 };
 
 // Check if Cloudinary is configured
 const isCloudinaryConfigured = () => {
-  return Boolean(
-    process.env.CLOUDINARY_CLOUD_NAME &&
-    process.env.CLOUDINARY_API_KEY &&
-    process.env.CLOUDINARY_API_SECRET
-  );
+  return getCloudinaryCredentials().isConfigured;
 };
 
 // Initial setup attempt
 initCloudinary();
 
 /**
- * Upload a file buffer to Cloudinary (with local disk fallback)
+ * Upload a file buffer to Cloudinary (with local disk fallback for dev)
  * @param {Object} file - Multer file object containing buffer, originalname, mimetype
  * @param {string} folder - Destination subfolder (e.g. 'hero', 'categories', 'projects')
  * @returns {Promise<{ url: string, publicId: string | null }>}
@@ -49,6 +84,15 @@ initCloudinary();
 const uploadFileWithDetails = async (file, folder = "general") => {
   if (!file || !file.buffer) {
     throw new Error("No file buffer provided for upload");
+  }
+
+  const isProd = process.env.NODE_ENV === "production";
+
+  // In production, images MUST be stored permanently on Cloudinary
+  if (isProd && !isCloudinaryConfigured()) {
+    throw new Error(
+      "Cloudinary is not configured on this server. In production, image uploads require valid CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET (or CLOUDINARY_URL) environment variables in Render to store images permanently."
+    );
   }
 
   // 1. Try Cloudinary if configured
@@ -77,11 +121,15 @@ const uploadFileWithDetails = async (file, folder = "general") => {
         publicId: uploadResult.public_id,
       };
     } catch (cldError) {
-      console.warn(`[Storage Warning] Cloudinary upload failed, using local disk fallback: ${cldError.message}`);
+      console.error(`[Storage Error] Cloudinary upload failed: ${cldError.message}`);
+      if (isProd) {
+        throw new Error(`Cloudinary upload failed: ${cldError.message}. Image was not saved.`);
+      }
+      console.warn(`[Storage Warning] Development local disk fallback will be used: ${cldError.message}`);
     }
   }
 
-  // 2. Local disk fallback
+  // 2. Local disk fallback (strictly for offline local development)
   const cleanOriginalName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, "_");
   const timestamp = Date.now();
   const randomSuffix = Math.round(Math.random() * 1e6);

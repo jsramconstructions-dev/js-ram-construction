@@ -5,6 +5,7 @@ import {
   getStoredCategories,
   fetchCategories,
   getProjectsByCategory,
+  resolveImageUrl,
 } from "../services/dataStorage";
 import "./ProjectPortfolio.css";
 
@@ -78,7 +79,7 @@ function ProjectPortfolio() {
             const catId = category.slug || category.id;
             const projects = getProjectsByCategory(catId);
             const count = category.projectCount !== undefined ? category.projectCount : projects.length;
-            const coverImage = category.coverImage || "/images/hero-construction.jpg";
+            const coverImage = resolveImageUrl(category.coverImage);
 
             return (
               <article
@@ -103,6 +104,10 @@ function ProjectPortfolio() {
                     loading="eager"
                     decoding="async"
                     draggable="false"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/images/hero-construction.jpg";
+                    }}
                   />
                   <div className="category-card-scrim" />
                 </div>

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, MapPin, ImageOff } from "lucide-react";
+import { resolveImageUrl } from "../services/dataStorage";
 import "./Projects.css";
 
 const projects = [
@@ -208,7 +209,7 @@ function Projects() {
                     </div>
                   ) : (
                     <img
-                      src={project.image}
+                      src={resolveImageUrl(project.image)}
                       alt={`${project.name} construction project`}
                       className="project-image"
                       loading={index < 3 ? "eager" : "lazy"}

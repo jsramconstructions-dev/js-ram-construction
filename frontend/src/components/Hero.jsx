@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {
   getStoredHomepageConfig,
   fetchHomepageSettings,
+  resolveImageUrl,
 } from "../services/dataStorage";
 import "./Hero.css";
 
@@ -31,10 +32,12 @@ function Hero() {
     return () => window.removeEventListener("jsram_data_updated", handleUpdate);
   }, []);
 
+  const resolvedHeroBg = resolveImageUrl(heroImage);
+
   return (
     <section
       className="hero"
-      style={{ backgroundImage: `url("${heroImage}")` }}
+      style={{ backgroundImage: `url("${resolvedHeroBg}")` }}
     >
       <div className="hero-overlay"></div>
 

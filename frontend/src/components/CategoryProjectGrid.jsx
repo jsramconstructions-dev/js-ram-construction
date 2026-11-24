@@ -6,6 +6,7 @@ import {
   fetchCategories,
   getProjectsByCategory,
   fetchProjects,
+  resolveImageUrl,
 } from "../services/dataStorage";
 import "./CategoryProjectGrid.css";
 
@@ -82,10 +83,9 @@ function CategoryProjectGrid() {
           <div className="category-projects-grid">
             {projects.map((project, index) => {
               const projectIdentifier = project.slug || project.id;
-              const coverImg =
-                project.image ||
-                (project.progressImages && project.progressImages[0]) ||
-                "/images/hero-construction.jpg";
+              const coverImg = resolveImageUrl(
+                project.image || (project.progressImages && project.progressImages[0])
+              );
 
               return (
                 <article className="cat-project-card" key={projectIdentifier}>
@@ -100,6 +100,10 @@ function CategoryProjectGrid() {
                         alt={`${project.name} construction project`}
                         className="cat-project-image"
                         loading={index < 3 ? "eager" : "lazy"}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = "/images/hero-construction.jpg";
+                        }}
                       />
 
                       <span className="cat-project-badge">

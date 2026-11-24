@@ -13,6 +13,13 @@ const getAllCategories = async (req, res) => {
     const categoriesWithCount = await Promise.all(
       categories.map(async (cat) => {
         const catObj = cat.toObject();
+        if (
+          !catObj.coverImage ||
+          catObj.coverImage.startsWith("blob:") ||
+          catObj.coverImage.startsWith("data:image")
+        ) {
+          catObj.coverImage = "/images/hero-construction.jpg";
+        }
         const count = await Project.countDocuments({
           categoryId: cat.slug,
           isPublished: true,
@@ -48,6 +55,13 @@ const getCategoryBySlug = async (req, res) => {
     }
 
     const catObj = category.toObject();
+    if (
+      !catObj.coverImage ||
+      catObj.coverImage.startsWith("blob:") ||
+      catObj.coverImage.startsWith("data:image")
+    ) {
+      catObj.coverImage = "/images/hero-construction.jpg";
+    }
     catObj.projectCount = await Project.countDocuments({
       categoryId: category.slug,
       isPublished: true,
@@ -106,6 +120,13 @@ const createCategory = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "A category cover image is required.",
+      });
+    }
+
+    if (coverImage.startsWith("blob:") || coverImage.startsWith("data:image")) {
+      return res.status(400).json({
+        success: false,
+        message: "Temporary blob or base64 image URLs cannot be saved. Please upload an image file.",
       });
     }
 
@@ -173,7 +194,14 @@ const updateCategory = async (req, res) => {
       category.coverImage = uploadResult.url;
       category.coverImagePublicId = uploadResult.publicId;
     } else if (req.body.coverImage && req.body.coverImage.trim() !== category.coverImage) {
-      category.coverImage = req.body.coverImage.trim();
+      const trimmedCover = req.body.coverImage.trim();
+      if (trimmedCover.startsWith("blob:") || trimmedCover.startsWith("data:image")) {
+        return res.status(400).json({
+          success: false,
+          message: "Temporary blob or base64 image URLs cannot be saved.",
+        });
+      }
+      category.coverImage = trimmedCover;
       category.coverImagePublicId = null;
     }
 
@@ -187,6 +215,13 @@ const updateCategory = async (req, res) => {
     }
 
     const catObj = category.toObject();
+    if (
+      !catObj.coverImage ||
+      catObj.coverImage.startsWith("blob:") ||
+      catObj.coverImage.startsWith("data:image")
+    ) {
+      catObj.coverImage = "/images/hero-construction.jpg";
+    }
     catObj.projectCount = await Project.countDocuments({
       categoryId: category.slug,
       isPublished: true,

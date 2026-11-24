@@ -17,6 +17,7 @@ import {
   fetchCategories,
   getStoredHomepageConfig,
   fetchHomepageSettings,
+  resolveImageUrl,
 } from "../../services/dataStorage";
 import "./AdminDashboard.css";
 
@@ -180,11 +181,12 @@ function AdminDashboard() {
                     <td>
                       <div className="table-project-name">
                         <img
-                          src={project.image}
+                          src={resolveImageUrl(project.image)}
                           alt={project.name}
                           className="table-project-thumb"
                           onError={(e) => {
-                            e.currentTarget.style.display = "none";
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = "/images/hero-construction.jpg";
                           }}
                         />
                         <div>

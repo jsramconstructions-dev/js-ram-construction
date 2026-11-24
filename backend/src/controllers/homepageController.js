@@ -4,6 +4,16 @@ const { uploadFileWithDetails, deleteFile } = require("../services/storageServic
 const getHomepage = async (req, res) => {
   try {
     const settings = await HomepageSettings.getSettings();
+
+    // Sanitize any legacy temporary or dead URLs in database
+    if (
+      !settings.heroImage ||
+      settings.heroImage.startsWith("blob:") ||
+      settings.heroImage.startsWith("data:image")
+    ) {
+      settings.heroImage = "/images/hero-construction.jpg";
+    }
+
     return res.status(200).json({
       success: true,
       data: settings,
@@ -33,6 +43,14 @@ const updateHeroImage = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "No image file or heroImage URL was provided.",
+      });
+    }
+
+    // Reject non-persistent temporary URLs
+    if (heroImageUrl.startsWith("blob:") || heroImageUrl.startsWith("data:image")) {
+      return res.status(400).json({
+        success: false,
+        message: "Temporary blob or base64 image URLs cannot be saved. Please upload an image file.",
       });
     }
 

@@ -19,6 +19,7 @@ import {
   saveCategory,
   deleteCategory,
   getProjectsByCategory,
+  resolveImageUrl,
 } from "../../services/dataStorage";
 import "./CategoryManagement.css";
 
@@ -247,9 +248,13 @@ function CategoryManagement() {
               {/* Media Preview */}
               <div className="cat-card-media-wrap">
                 <img
-                  src={cat.coverImage || "/images/hero-construction.jpg"}
+                  src={resolveImageUrl(cat.coverImage)}
                   alt={cat.title}
                   className="cat-card-preview-img"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "/images/hero-construction.jpg";
+                  }}
                 />
                 <div className="cat-card-badge-row">
                   <span className="cat-badge-id">
@@ -431,7 +436,7 @@ function CategoryManagement() {
                   <div className="image-preview-box">
                     <span>Selected Cover Preview:</span>
                     <img
-                      src={editForm.coverImage}
+                      src={resolveImageUrl(editForm.coverImage, "/images/hero-construction.jpg", true)}
                       alt="Cover Preview"
                       className="modal-cover-preview"
                     />

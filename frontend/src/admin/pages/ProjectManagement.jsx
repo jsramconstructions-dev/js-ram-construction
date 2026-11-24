@@ -23,6 +23,7 @@ import {
   fetchCategories,
   saveProject,
   deleteProject,
+  resolveImageUrl,
 } from "../../services/dataStorage";
 import "./ProjectManagement.css";
 
@@ -362,10 +363,9 @@ function ProjectManagement() {
                   );
                   const isPublished =
                     project.isPublished !== false && project.published !== false;
-                  const cover =
-                    project.image ||
-                    (project.progressImages && project.progressImages[0]) ||
-                    "/images/hero-construction.jpg";
+                  const cover = resolveImageUrl(
+                    project.image || (project.progressImages && project.progressImages[0])
+                  );
 
                   return (
                     <tr
@@ -378,6 +378,10 @@ function ProjectManagement() {
                             src={cover}
                             alt={project.name}
                             className="table-project-thumb"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = "/images/hero-construction.jpg";
+                            }}
                           />
                           <div>
                             <strong>{project.name}</strong>
@@ -643,7 +647,14 @@ function ProjectManagement() {
                             isCover ? "is-selected-cover" : ""
                           }`}
                         >
-                          <img src={imgUrl} alt={`Photo ${idx + 1}`} />
+                          <img
+                            src={resolveImageUrl(imgUrl, "/images/hero-construction.jpg", true)}
+                            alt={`Photo ${idx + 1}`}
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = "/images/hero-construction.jpg";
+                            }}
+                          />
 
                           <button
                             type="button"

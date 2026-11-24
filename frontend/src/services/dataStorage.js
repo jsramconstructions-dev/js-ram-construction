@@ -2,14 +2,19 @@
 // Connects to Node.js + Express + MongoDB Atlas backend with resilient offline/localStorage fallback.
 
 import { categoryData, categorizedProjects } from "../data/projectsData";
+import { resolveImageUrl } from "../utils/imageUrl";
 
-// Strip any trailing /api or /api/ from the env var so we never double up paths.
-const API_BASE = (
+export { resolveImageUrl };
+
+// Strip any trailing /api or /api/ and trailing slashes so we never double up paths.
+export const API_BASE = (
   import.meta.env.VITE_API_URL ||
   (typeof window !== "undefined" && window.location.hostname === "localhost" && window.location.port !== "5000"
     ? "http://localhost:5000"
     : "")
-).replace(/\/api\/?$/, "");
+)
+  .replace(/\/api\/?$/, "")
+  .replace(/\/+$/, "");
 
 const STORAGE_KEYS = {
   PROJECTS: "jsram_projects_v3",
@@ -129,6 +134,16 @@ export const getAuthToken = () => {
     const raw = localStorage.getItem(STORAGE_KEYS.AUTH);
     if (raw) {
       const data = JSON.parse(raw);
+      // If a non-JWT fallback token exists on production, remove it to avoid 401 request cascades
+      if (
+        typeof data?.token === "string" &&
+        data.token.startsWith("jsram_fallback_token_") &&
+        typeof window !== "undefined" &&
+        window.location.hostname !== "localhost"
+      ) {
+        localStorage.removeItem(STORAGE_KEYS.AUTH);
+        return null;
+      }
       return data?.token || null;
     }
   } catch {
@@ -178,8 +193,10 @@ export const loginAdmin = async (username, password) => {
     return { success: true, user: response.data.user };
   }
 
-  // Fallback Dev Auth when backend unreachable
+  // Fallback Dev Auth ONLY on local development when backend is completely offline
+  const isLocalHost = typeof window !== "undefined" && window.location.hostname === "localhost";
   if (
+    isLocalHost &&
     (cleanUsername === "admin" || cleanUsername === "admin@jsramconstruction.com") &&
     password === "JSRam@2026"
   ) {

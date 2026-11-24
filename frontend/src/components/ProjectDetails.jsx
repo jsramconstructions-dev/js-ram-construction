@@ -12,6 +12,7 @@ import {
 import {
   fetchProjectBySlug,
   getStoredProjects,
+  resolveImageUrl,
 } from "../services/dataStorage";
 import "./ProjectDetails.css";
 
@@ -65,17 +66,19 @@ function ProjectDetails() {
     );
   }
 
-  const galleryImages = [
+  const rawGallery = [
     ...(project?.image ? [project.image] : []),
     ...(project?.progressImages || []),
   ].filter((img, idx, arr) => img && arr.indexOf(img) === idx);
 
-  const defaultImage =
-    project?.image ||
-    (project?.progressImages && project?.progressImages[0]) ||
-    "/images/hero-construction.jpg";
+  const galleryImages = rawGallery.map((img) => resolveImageUrl(img));
 
-  const currentDisplayImage = selectedImage || defaultImage;
+  const defaultImage = resolveImageUrl(
+    project?.image ||
+    (project?.progressImages && project?.progressImages[0])
+  );
+
+  const currentDisplayImage = selectedImage ? resolveImageUrl(selectedImage) : defaultImage;
 
   return (
     <section className="project-details-page">
@@ -111,6 +114,10 @@ function ProjectDetails() {
                 src={currentDisplayImage}
                 alt={`${project?.name} architectural view`}
                 className="project-hero-media"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "/images/hero-construction.jpg";
+                }}
               />
             </div>
 
@@ -133,6 +140,10 @@ function ProjectDetails() {
                     <img
                       src={imgUrl}
                       alt={`${project?.name} view ${idx + 1}`}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "/images/hero-construction.jpg";
+                      }}
                     />
                   </button>
                 ))}

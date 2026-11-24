@@ -10,18 +10,24 @@ const projectRoutes = require("./routes/projectRoutes");
 const app = express();
 
 // CORS configuration
-const allowedOrigins = process.env.FRONTEND_URL
-  ? process.env.FRONTEND_URL.split(",").map((url) => url.trim())
-  : ["http://localhost:5173", "http://localhost:3000", "http://localhost:5000"];
+const defaultOrigins = ["http://localhost:5173", "http://localhost:3000", "http://localhost:5000"];
+const envOrigins = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.split(",")
+      .map((url) => url.trim().replace(/\/+$/, ""))
+      .filter(Boolean)
+  : [];
+const allowedOrigins = Array.from(new Set([...defaultOrigins, ...envOrigins]));
 
 app.use(
   cors({
     origin: (origin, callback) => {
       // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
       if (!origin) return callback(null, true);
+
+      const cleanOrigin = origin.replace(/\/+$/, "");
       if (
         allowedOrigins.includes("*") ||
-        allowedOrigins.includes(origin) ||
+        allowedOrigins.includes(cleanOrigin) ||
         process.env.NODE_ENV !== "production"
       ) {
         return callback(null, true);
