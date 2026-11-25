@@ -153,10 +153,11 @@ const createCategory = async (req, res) => {
       data: result,
     });
   } catch (error) {
-    console.error("[Create Category Error]", error);
-    return res.status(500).json({
+    console.error("[Create Category Error]", error.message);
+    const status = error.status || 500;
+    return res.status(status).json({
       success: false,
-      message: "Failed to create category.",
+      message: error.message || "Failed to create category.",
       error: error.message,
     });
   }
@@ -233,10 +234,11 @@ const updateCategory = async (req, res) => {
       data: catObj,
     });
   } catch (error) {
-    console.error("[Update Category Error]", error);
-    return res.status(500).json({
+    console.error("[Update Category Error]", error.message);
+    const status = error.status || 500;
+    return res.status(status).json({
       success: false,
-      message: "Failed to update category.",
+      message: error.message || "Failed to update category.",
       error: error.message,
     });
   }

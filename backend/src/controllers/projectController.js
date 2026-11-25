@@ -216,10 +216,11 @@ const createProject = async (req, res) => {
       data: newProject,
     });
   } catch (error) {
-    console.error("[Create Project Error]", error);
-    return res.status(500).json({
+    console.error("[Create Project Error]", error.message);
+    const status = error.status || 500;
+    return res.status(status).json({
       success: false,
-      message: "Failed to create project.",
+      message: error.message || "Failed to create project.",
       error: error.message,
     });
   }
@@ -327,10 +328,11 @@ const updateProject = async (req, res) => {
       data: project,
     });
   } catch (error) {
-    console.error("[Update Project Error]", error);
-    return res.status(500).json({
+    console.error("[Update Project Error]", error.message);
+    const status = error.status || 500;
+    return res.status(status).json({
       success: false,
-      message: "Failed to update project.",
+      message: error.message || "Failed to update project.",
       error: error.message,
     });
   }
@@ -402,10 +404,11 @@ const uploadProjectImages = async (req, res) => {
       urls: uploaded.map((u) => u.url),
     });
   } catch (error) {
-    console.error("[Upload Project Images Error]", error);
-    return res.status(500).json({
+    console.error("[Upload Project Images Error]", error.message);
+    const status = error.status || 500;
+    return res.status(status).json({
       success: false,
-      message: "Failed to upload project images.",
+      message: error.message || "Failed to upload project images.",
       error: error.message,
     });
   }

@@ -82,10 +82,11 @@ const updateHeroImage = async (req, res) => {
       data: settings,
     });
   } catch (error) {
-    console.error("[Homepage Update Error]", error);
-    return res.status(500).json({
+    console.error("[Homepage Update Error]", error.message);
+    const status = error.status || 500;
+    return res.status(status).json({
       success: false,
-      message: "Failed to update homepage hero image.",
+      message: error.message || "Failed to update homepage hero image.",
       error: error.message,
     });
   }
