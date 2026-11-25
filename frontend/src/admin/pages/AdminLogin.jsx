@@ -55,9 +55,7 @@ function AdminLogin() {
           </div>
 
           <h1 className="admin-login-title">JS RAM Admin Portal</h1>
-          <p className="admin-login-subtitle">
-            Secure staff access for homepage hero, category, and project portfolio management.
-          </p>
+         
         </div>
 
         {/* ERROR NOTIFICATION */}
@@ -102,10 +100,7 @@ function AdminLogin() {
             </div>
           </div>
 
-          <div className="admin-demo-hint">
-            <strong>Administrator Credentials:</strong>
-            <code>Username: admin &bull; Password: JSRam@2026</code>
-          </div>
+         
 
           <button
             type="submit"
@@ -117,9 +112,7 @@ function AdminLogin() {
           </button>
         </form>
 
-        <footer className="admin-login-footer">
-          <span>JS RAM CONSTRUCTION PVT. LTD. &bull; NAGPUR, MAHARASHTRA</span>
-        </footer>
+        
       </div>
     </div>
   );

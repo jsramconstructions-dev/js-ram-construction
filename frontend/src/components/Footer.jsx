@@ -86,7 +86,7 @@ function Footer() {
             aria-label="JS RAM Construction home"
           >
             <img
-              src="/images/logo.png"
+              src="/images/Js Ram Logo.png"
               alt="JS RAM Construction Private Limited"
               className="footer-logo"
               loading="lazy"
