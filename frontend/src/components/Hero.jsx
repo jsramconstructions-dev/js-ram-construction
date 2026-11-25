@@ -42,6 +42,19 @@ function Hero() {
       <div className="hero-overlay"></div>
 
       <div className="hero-content">
+        <div
+          className="hero-brand-lockup"
+          aria-label="JS Ram Construction Pvt. Ltd. and Rohit Construction Company"
+        >
+          <span className="hero-brand-name">JS RAM CONSTRUCTION PVT. LTD.</span>
+          <span className="hero-brand-separator" aria-hidden="true">
+            &amp;
+          </span>
+          <span className="hero-brand-name">ROHIT CONSTRUCTION COMPANY</span>
+        </div>
+
+        <div className="hero-brand-divider" aria-hidden="true"></div>
+
         <p className="hero-eyebrow">
           CONSTRUCTION <span>•</span> EPC <span>•</span> INFRASTRUCTURE
         </p>
