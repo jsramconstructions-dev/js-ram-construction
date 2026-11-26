@@ -229,7 +229,7 @@ function Footer() {
 
             <span>
               <strong>Website</strong>
-              <small>www.jsramconstruction.com</small>
+              <small>www.jsram</small>
             </span>
           </a>
         </div>
