@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Shield, Lock, User, ArrowRight, AlertCircle, ArrowLeft } from "lucide-react";
+import { Lock, User, ArrowRight, AlertCircle, ArrowLeft } from "lucide-react";
 import { loginAdmin, isUserAuthenticated } from "../../services/dataStorage";
 import "./AdminLogin.css";
 
@@ -50,12 +50,14 @@ function AdminLogin() {
             <span>Back to Public Website</span>
           </Link>
 
-          <div className="admin-login-icon-wrap">
-            <Shield size={28} />
-          </div>
+          <img
+            src="/images/Js Ram Logo.png"
+            alt="JS RAM"
+            className="admin-login-logo"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          />
 
-          <h1 className="admin-login-title">JS RAM Admin Portal</h1>
-         
+          <h1 className="admin-login-title">Admin Login</h1>
         </div>
 
         {/* ERROR NOTIFICATION */}
@@ -69,7 +71,7 @@ function AdminLogin() {
         {/* LOGIN FORM */}
         <form onSubmit={handleSubmit} className="admin-login-form">
           <div className="form-group">
-            <label htmlFor="admin-username">Administrator Username / Email</label>
+            <label htmlFor="admin-username">Username / Email</label>
             <div className="input-wrap">
               <User size={16} className="input-icon" />
               <input
@@ -77,7 +79,7 @@ function AdminLogin() {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username (admin)"
+                placeholder="Username or email"
                 required
                 autoComplete="username"
               />
@@ -85,7 +87,7 @@ function AdminLogin() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="admin-password">Secure Password</label>
+            <label htmlFor="admin-password">Password</label>
             <div className="input-wrap">
               <Lock size={16} className="input-icon" />
               <input
@@ -93,7 +95,7 @@ function AdminLogin() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password (JSRam@2026)"
+                placeholder="Password"
                 required
                 autoComplete="current-password"
               />

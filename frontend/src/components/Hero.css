@@ -12,7 +12,7 @@
   box-sizing: border-box;
   background-color: #0d1117;
   background-image: url("/images/hero-construction.jpg");
-  background-position: left center;
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   color: #ffffff;
@@ -364,7 +364,7 @@
   .hero {
     min-height: 700px;
     padding: 64px 5% 84px;
-    background-position: 22% center;
+    background-position: center center;
   }
 
   .hero-content {
@@ -411,7 +411,7 @@
   .hero {
     min-height: 620px;
     padding: 52px 22px 68px;
-    background-position: 22% center;
+    background-position: center top;
   }
 
   .hero-overlay {
